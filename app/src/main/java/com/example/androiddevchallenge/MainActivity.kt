@@ -17,45 +17,64 @@ package com.example.androiddevchallenge
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.androiddevchallenge.ui.component.CountDownNumber
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.ui.vm.CountViewModel
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel by viewModels<CountViewModel>()
+
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             MyTheme {
-                MyApp()
+                MyApp(viewModel = viewModel)
             }
         }
     }
 }
 
 // Start building your app here!
+@ExperimentalAnimationApi
 @Composable
-fun MyApp() {
+fun MyApp(viewModel: CountViewModel) {
     Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+        Box(
+            modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+            contentAlignment = Alignment.Center
+        ) {
+            CountDownNumber(viewModel = viewModel)
+        }
     }
 }
 
+@ExperimentalAnimationApi
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
     MyTheme {
-        MyApp()
+
     }
 }
 
+@ExperimentalAnimationApi
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {
     MyTheme(darkTheme = true) {
-        MyApp()
+
     }
 }
