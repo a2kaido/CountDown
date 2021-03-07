@@ -25,7 +25,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-class CountViewModel: ViewModel() {
+class CountViewModel : ViewModel() {
     private val _countState = MutableLiveData(CountState())
     val countState: LiveData<CountState> = _countState
 
@@ -46,7 +46,7 @@ class CountViewModel: ViewModel() {
                 )
                 _countState.value = next
 
-                launch loop@ {
+                launch loop@{
                     delay(900)
                     _countState.value = next.copy(
                         first = next.first.decrementCount(),
